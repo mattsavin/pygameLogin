@@ -18,19 +18,19 @@ def draw(screen):
     pygame.display.flip()
 
 
-if __name__ == "__main__":
+def create_screen():
     pygame.init()
-
     fps = 60
-    fpsClock = pygame.time.Clock()
-
-    width, height = 640, 480
-    screen = pygame.display.set_mode((width, height))
-
     dt = 1 / fps
+    fps_clock = pygame.time.Clock()
+    res = (640, 480)
+    screen = pygame.display.set_mode(res)
     while True:
         update(dt)
         draw(screen)
 
-        dt = fpsClock.tick()
+        dt = fps_clock.tick()
 
+
+if __name__ == "__main__":
+    create_screen()
