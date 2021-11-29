@@ -1,5 +1,6 @@
 import pygame.locals
 from button import *
+from textBox import *
 
 
 def update(dt):
@@ -16,6 +17,10 @@ def draw(screen, event):
 
     login_button = Button((50, 50, 100), 100, 300, 150, 50, "Login")
     exit_button = Button((50, 50, 100), 300, 300, 150, 50, "Exit")
+    username_input = InputBox(25, 25, 200, 50)
+    password_input = InputBox(25, 100, 200, 50)
+
+    input_boxes = [username_input, password_input]
 
     if login_button.is_hovering(pygame.mouse.get_pos()) and event and event.type == pygame.MOUSEBUTTONDOWN:
         print("login")
@@ -25,6 +30,10 @@ def draw(screen, event):
 
     login_button.draw(screen)
     exit_button.draw(screen)
+    for box in input_boxes:
+        box.handle_event(event)
+        box.update()
+        box.draw(screen)
 
     pygame.display.flip()
 
