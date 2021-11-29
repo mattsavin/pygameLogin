@@ -1,13 +1,6 @@
 import pygame.locals
 from button import *
 
-LOGIN_BUTTON_X = 100
-LOGIN_BUTTON_Y = 300
-EXIT_BUTTON_X = 300
-EXIT_BUTTON_Y = 300
-BUTTON_WIDTH = 150
-BUTTON_HEIGHT = 50
-
 
 def update(dt):
     for event in pygame.event.get():
@@ -15,17 +8,21 @@ def update(dt):
             pygame.quit()
             exit()
         elif event.type == pygame.MOUSEBUTTONDOWN:
-            pass
+            return event
 
 
-def draw(screen):
+def draw(screen, event):
     screen.fill((0, 0, 0))
 
-    login_button = Button((50, 50, 100), LOGIN_BUTTON_X, LOGIN_BUTTON_Y, BUTTON_WIDTH, BUTTON_HEIGHT, "Login")
-    exit_button = Button((50, 50, 100), EXIT_BUTTON_X, EXIT_BUTTON_Y, BUTTON_WIDTH, BUTTON_HEIGHT, "Exit")
+    login_button = Button((50, 50, 100), 100, 300, 150, 50, "Login")
+    exit_button = Button((50, 50, 100), 300, 300, 150, 50, "Exit")
 
-    if login_button.is_hovering(pygame.mouse.get_pos()):
-        print("hover!")
+    if login_button.is_hovering(pygame.mouse.get_pos()) and event and event.type == pygame.MOUSEBUTTONDOWN:
+        print("login")
+    elif exit_button.is_hovering(pygame.mouse.get_pos()) and event and event.type == pygame.MOUSEBUTTONDOWN:
+        pygame.quit()
+        exit()
+
     login_button.draw(screen)
     exit_button.draw(screen)
 
@@ -42,8 +39,8 @@ def create_screen():
     screen = pygame.display.set_mode((640, 480))
 
     while True:
-        draw(screen)
-        update(dt, )
+        event = update(dt)
+        draw(screen, event)
 
         dt = fps_clock.tick()
 
