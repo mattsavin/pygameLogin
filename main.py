@@ -42,7 +42,7 @@ def create_screen():
         event = update(dt)
         draw(screen, event)
 
-        dt = fps_clock.tick()
+        dt = fps_clock.tick(fps)
 
 
 if __name__ == "__main__":
